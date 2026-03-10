@@ -1,0 +1,11 @@
+{
+  "name": "teammate-os",
+  "displayName": "Teammate OS",
+  "version": "0.1.0",
+  "description": "Scaffold a complete personal workspace OS for any teammate — goals, projects, todos, dashboard canvas, Cursor skills, and rules.",
+  "author": {
+    "name": "Team"
+  },
+  "license": "MIT",
+  "keywords": ["cursor", "plugin", "workspace", "onboarding", "productivity", "os", "scaffold"]
+}

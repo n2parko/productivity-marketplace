@@ -53,3 +53,19 @@ View agenda, create events, find free time, and manage your schedule.
 
 **schedule-manager** — Manages your calendar end-to-end. Checks auth on start, views your agenda, finds available slots across attendees, and books or reschedules meetings with confirmation.
 
+---
+
+## Teammate OS
+
+Scaffold a complete personal workspace OS for any teammate — goals, projects, todos, dashboard canvas, Cursor skills, and rules.
+
+### Skills
+
+| Skill | Description |
+|-------|-------------|
+| **generate-teammate-os** | Interactive scaffold that gathers inputs (name, role, integrations, projects, goals) and creates a full workspace with dashboard, update skill, and Cursor rules |
+
+### Usage
+
+Say "generate os", "set up os for [name]", "onboard teammate", or "new teammate os" to start the interactive setup.
+
