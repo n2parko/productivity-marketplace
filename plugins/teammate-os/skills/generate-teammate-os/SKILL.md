@@ -62,8 +62,8 @@ Ask conversationally:
 >
 > **Area: Extensibility**
 > - Goal: Grow Marketplace
->   - [ ] Expand to 100 plugins
->   - [ ] 20% of teams using plugins
+>   - [ ] Expand to 100 apps
+>   - [ ] 20% of users download an app
 
 ### Batch 5 — Integration Details (for each selected integration)
 
