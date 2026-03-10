@@ -61,7 +61,7 @@ Ask conversationally:
 > List your monthly goals. Group them by area. For each goal, list the sub-items as checkboxes. Example:
 >
 > **Area: Extensibility**
-> - Goal: Grow Marketplace
+> - Goal: Grow App Store
 >   - [ ] Expand to 100 apps
 >   - [ ] 20% of users download an app
 
@@ -69,7 +69,7 @@ Ask conversationally:
 
 **Slack** — ask conversationally:
 > What are your key Slack channels to monitor? For each, give me:
-> - Channel name (e.g., #proj-marketplaces)
+> - Channel name (e.g., #proj-app-store)
 > - Channel ID (if you know it — otherwise we'll look it up)
 > - Priority: High / Medium / Low
 > - What topics does it cover?
@@ -78,7 +78,7 @@ Ask conversationally:
 
 **Hex** — ask conversationally:
 > What Hex dashboards should the OS track? For each:
-> - Dashboard name (e.g., "Marketplace")
+> - Dashboard name (e.g., "App Store")
 > - App URL
 > - What headline metric should I pull? (e.g., "Total installs this week, WoW trend")
 
