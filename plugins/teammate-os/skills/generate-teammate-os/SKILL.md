@@ -14,95 +14,34 @@ Scaffold a complete personal workspace OS for a teammate. The output is a self-c
 
 ## Step 0: Gather Inputs (Interactive)
 
-**Always run this step first.** Use the AskQuestion tool to collect structured inputs before scaffolding anything. Ask in batches to keep it fast — don't ask one question at a time.
+**Always run this step first.** Ask onboarding questions one at a time as free-form conversational prompts. Do NOT use the AskQuestion tool — just ask each question in plain text and wait for the user's response before moving to the next one.
 
-### Batch 1 — Identity & Location
+### Question 1 — Name
 
-Ask these conversationally (they're open-ended text, not multiple choice):
+> What's your name?
 
-> I need a few details to set up the OS:
-> 1. **Full name** (e.g., Maya Chen)
-> 2. **Handle** — short lowercase id used in paths and branding (e.g., `maya`)
-> 3. **Role / title** (e.g., Design Lead)
-> 4. **Workspace path** — where to create the workspace (e.g., `~/dev/maya-work`)
+Wait for the user's response. From their name, derive:
+- **Full name** — as provided (e.g., "Maya Chen")
+- **Handle** — lowercase first name or short id (e.g., `maya`)
+- **Workspace path** — default to `~/dev/<handle>-work` (can be changed later)
 
-Wait for the user's response before continuing.
+### Question 2 — Integrations
 
-### Batch 2 — Scope & Integrations
+> What integrations do you want to set up? We recommend **Notion, Slack, Granola, and Hex** — but you can list whatever you'd like, or say "none for now."
 
-Use AskQuestion with structured options:
+Wait for the user's response. Accept any free-form answer (e.g., "slack and notion", "all of them", "none for now"). Map their response to the integration setup steps later.
 
-```
-Question 1: "Which integrations should we set up?"
-  Options: [Slack, Google Calendar, Granola (meeting notes), Hex (dashboards), None for now]
-  allow_multiple: true
+### Question 3 — Goals
 
-Question 2: "Do you want to pre-populate projects?"
-  Options: [Yes — I'll list them next, No — start with an example project]
+> Link us to your team's monthly goals, or paste/type them here. (A Notion link, Google Doc, or just a bulleted list all work.)
 
-Question 3: "Do you want to pre-populate monthly goals?"
-  Options: [Yes — I'll provide them next, No — start with a template]
-```
+Wait for the user's response. If they provide a link, fetch and parse it. If they paste text, use it directly. If they say they don't have goals yet, use a placeholder template.
 
-### Batch 3 — Projects (if "Yes" to projects)
+### Question 4 — Projects
 
-Ask conversationally:
+> What projects are you currently working on? Just list them — a name and one-liner for each is plenty.
 
-> List your active projects. For each, give me:
-> - **Name** (will become the folder slug)
-> - **One-liner** describing the project
-> - **Lead** (who owns it)
-> - **Key Slack channel** (if any)
-
-### Batch 4 — Goals (if "Yes" to goals)
-
-Ask conversationally:
-
-> List your monthly goals. Group them by area. For each goal, list the sub-items as checkboxes. Example:
->
-> **Area: Extensibility**
-> - Goal: Grow App Store
->   - [ ] Expand to 100 apps
->   - [ ] 20% of users download an app
-
-### Batch 5 — Integration Details (for each selected integration)
-
-**Slack** — ask conversationally:
-> What are your key Slack channels to monitor? For each, give me:
-> - Channel name (e.g., #proj-app-store)
-> - Channel ID (if you know it — otherwise we'll look it up)
-> - Priority: High / Medium / Low
-> - What topics does it cover?
->
-> Also, what's your Slack user ID? (Find it in your Slack profile → three dots → "Copy member ID")
-
-**Hex** — ask conversationally:
-> What Hex dashboards should the OS track? For each:
-> - Dashboard name (e.g., "App Store")
-> - App URL
-> - What headline metric should I pull? (e.g., "Total installs this week, WoW trend")
-
-**Calendar** — use AskQuestion:
-```
-Question: "Which Google Calendar should we sync?"
-  Options: [Primary calendar, A specific calendar ID — I'll provide it]
-```
-
-**Granola** — no config needed, just confirm it's connected.
-
-### Batch 6 — Work Style (optional)
-
-Use AskQuestion:
-
-```
-Question: "Any specific work style preferences?"
-  Options: [
-    "Use the defaults (exec-level communication, synthesis over questions, lead with answer)",
-    "I'll describe my preferences"
-  ]
-```
-
-If they choose to describe, ask conversationally and incorporate into the work-style rule.
+Wait for the user's response. For each project, derive a folder slug from the name.
 
 ### After Gathering
 
