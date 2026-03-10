@@ -3,7 +3,7 @@ name: generate-teammate-os
 description: >-
   Scaffold a personal workspace OS for a new teammate — directory structure,
   goals, projects, canvas dashboard, Cursor skills, and rules. Generates everything
-  needed for a teammate to run their own OS (like n2parkOS). Use when user says
+  needed for a teammate to run their own personal OS. Use when user says
   "generate os", "set up os for", "onboard teammate", "create workspace for",
   or "new teammate os".
 ---
@@ -156,7 +156,7 @@ This creates:
 │   │   └── workspace.ts           # Reads workspace markdown into structured data
 │   ├── scripts/
 │   │   └── generate-canvas.ts     # Generates self-contained HTML canvas
-│   ├── n2parkos.html              # Generated canvas output (do not edit directly)
+│   ├── <handle>os.html             # Generated canvas output (do not edit directly)
 │   ├── package.json
 │   └── tsconfig.json
 └── .cursor/
@@ -343,8 +343,8 @@ The scaffold script copies the dashboard template. After running it:
 
 1. **Update `scripts/generate-canvas.ts`**:
    - Change `HEX_DASHBOARDS` array to the teammate's dashboards (or empty array with `[]`)
-   - Change `"N2parko work"` → `"<Handle> work"` in the eyebrow text
-   - Change `"n2parkOS"` → `"<handle>OS"` in the h1 and page title
+   - Set the eyebrow text to `"<Handle> work"`
+   - Set the h1 and page title to `"<handle>OS"`
 
 2. **Update `lib/workspace.ts`**:
    - This file is generic and reads from `../` relative to the workspace-organizer directory
@@ -379,7 +379,7 @@ Present a summary to the user:
 | Goals | `goals/<month>-<year>.md` | ✅ (needs review) |
 | Projects (N) | `projects/*/overview.md` | ✅ |
 | Today's todo | `todos/YYYY-MM-DD/todo.md` | ✅ |
-| Dashboard canvas | `workspace-organizer/n2parkos.html` | ✅ |
+| Dashboard canvas | `workspace-organizer/<handle>os.html` | ✅ |
 | Cursor rules | `.cursor/rules/` | ✅ |
 | Update skill | `~/.cursor/skills/update-<handle>os/` | ✅ |
 | Personal context skill | `~/.cursor/skills/<handle>-personal-context/` | ✅ |
