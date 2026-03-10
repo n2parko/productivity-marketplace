@@ -9,7 +9,7 @@ Running **generate-teammate-os** creates a fully personalized workspace with:
 - **Goals** — Monthly goals with weekly breakdown and health tracking
 - **Projects** — Per-project overview and next-steps files
 - **Todos** — Daily todos organized by date
-- **Dashboard** — Self-contained HTML canvas showing goals, projects, tasks, and calendar
+- **Dashboard** — Self-contained HTML canvas rendered inline via Cursor's `CreateCanvas` tool (goals, projects, tasks, calendar, Hex metrics)
 - **Cursor rules** — Personal context and work style rules
 - **Update skill** — A generated skill that syncs the workspace from Slack, Calendar, Granola, and Hex
 

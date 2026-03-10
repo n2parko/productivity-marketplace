@@ -155,8 +155,11 @@ This creates:
 │   ├── lib/
 │   │   └── workspace.ts           # Reads workspace markdown into structured data
 │   ├── scripts/
-│   │   └── generate-canvas.ts     # Generates self-contained HTML canvas
-│   ├── <handle>os.html             # Generated canvas output (do not edit directly)
+│   │   ├── generate-canvas.ts     # Generates self-contained HTML canvas
+│   │   └── generate-canvas-data.ts # Generates JSON data for data-driven template
+│   ├── canvas-template.html       # Data-driven template for CreateCanvas
+│   ├── <handle>os.html            # Generated canvas output (do not edit directly)
+│   ├── canvas-data.json           # Generated JSON data (do not edit directly)
 │   ├── package.json
 │   └── tsconfig.json
 └── .cursor/
@@ -335,24 +338,34 @@ Create `~/.cursor/skills/<handle>-personal-context/SKILL.md` — mirrors the rul
 
 ## Step 7: Generate Dashboard Canvas
 
-The dashboard is a self-contained HTML canvas generated from a TypeScript script that reads the workspace's markdown files and renders goals, projects, tasks, and calendar.
+The dashboard is a self-contained HTML canvas generated from TypeScript scripts that read the workspace's markdown files and render goals, projects, tasks, and calendar. It supports two rendering modes:
+
+- **Pre-built HTML** (`npm run canvas`) — Generates a complete `<handle>os.html` file
+- **Data-driven JSON** (`npm run canvas-data`) — Generates `canvas-data.json` consumed by `canvas-template.html`
+
+Both can be rendered inline in Cursor chat using the `CreateCanvas` tool.
 
 ### Copy the workspace-organizer
 
-The scaffold script copies the dashboard template. After running it:
+The scaffold script creates the workspace-organizer directory. After running it, create the following files:
 
-1. **Update `scripts/generate-canvas.ts`**:
+1. **`scripts/generate-canvas.ts`** — Copy from the reference implementation and customize:
    - Change `HEX_DASHBOARDS` array to the teammate's dashboards (or empty array with `[]`)
    - Set the eyebrow text to `"<Handle> work"`
    - Set the h1 and page title to `"<handle>OS"`
+   - Set the output filename to `"<handle>os.html"`
 
-2. **Update `lib/workspace.ts`**:
-   - This file is generic and reads from `../` relative to the workspace-organizer directory
-   - No changes needed unless the teammate's workspace structure differs
+2. **`scripts/generate-canvas-data.ts`** — Copy from the reference implementation and customize:
+   - Change `HEX_DASHBOARDS` array (same as above)
 
-3. **Update `package.json`**:
-   - Change name to `"<handle>-workspace-organizer"`
-   - Ensure it has a `"canvas"` script: `"npx tsx scripts/generate-canvas.ts"`
+3. **`canvas-template.html`** — Copy from the reference implementation and customize:
+   - Set the eyebrow text and title to match
+
+4. **`lib/workspace.ts`** — Generic, reads from `../` relative to workspace-organizer. No changes needed.
+
+5. **`package.json`** — Ensure these scripts exist:
+   - `"canvas": "npx tsx scripts/generate-canvas.ts"`
+   - `"canvas-data": "npx tsx scripts/generate-canvas-data.ts"`
 
 ### Install and generate
 
@@ -360,7 +373,20 @@ The scaffold script copies the dashboard template. After running it:
 cd <workspace_path>/workspace-organizer && npm install && npm run canvas
 ```
 
-This generates `<handle>os.html` — a self-contained HTML file the teammate can open in the Cursor browser panel or any browser. No dev server needed. Regenerate any time with `npm run canvas`.
+### Render inline with CreateCanvas
+
+After generating, render the dashboard inline in Cursor chat:
+
+1. Call `CreateCanvas` with:
+   - `title`: `"<handle>OS"`
+   - `template`: `<workspace_path>/workspace-organizer/<handle>os.html`
+
+2. Write `{}` to the **data file** returned by CreateCanvas.
+3. Write `{}` to the **state file** to dismiss any loading state.
+
+The canvas appears as an interactive dashboard directly in the chat. No browser or dev server needed.
+
+**Alternative (data-driven):** Run `npm run canvas-data` to generate JSON, then use `canvas-template.html` as the CreateCanvas template and write the JSON to the data file. This is useful for live-updating canvases where only the data changes.
 
 ---
 
@@ -396,10 +422,10 @@ Present a summary to the user:
 ### Customization guide
 
 - **Add a project:** Create `projects/<slug>/overview.md` with the standard template
-- **Add a Hex dashboard:** Add a row to `hex-dashboards.md` and update `HEX_DASHBOARDS` in `scripts/generate-canvas.ts`
+- **Add a Hex dashboard:** Add a row to `hex-dashboards.md` and update `HEX_DASHBOARDS` in both `scripts/generate-canvas.ts` and `scripts/generate-canvas-data.ts`
 - **Add a Slack channel:** Add a row to `channels.md`
 - **Change work style:** Edit `.cursor/rules/work-style.mdc`
-- **Refresh the canvas:** Run `npm run canvas` in `workspace-organizer/`
+- **Refresh the canvas:** Run `npm run canvas` in `workspace-organizer/`, then use CreateCanvas to render inline
 ```
 
 ---

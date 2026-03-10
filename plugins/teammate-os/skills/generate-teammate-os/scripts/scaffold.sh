@@ -36,8 +36,8 @@ echo "Creating directory structure..."
 mkdir -p "$WORKSPACE"/{goals,projects,todos/"$TODAY",customers}
 mkdir -p "$WORKSPACE/.cursor/rules"
 
-# ── Workspace organizer placeholder ──
-mkdir -p "$WORKSPACE/workspace-organizer"
+# ── Workspace organizer ──
+mkdir -p "$WORKSPACE/workspace-organizer"/{lib,scripts}
 
 # ── Skills directory ──
 echo "Creating skill directories..."

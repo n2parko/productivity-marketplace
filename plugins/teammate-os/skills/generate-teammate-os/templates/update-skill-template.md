@@ -107,15 +107,34 @@ For each project with new context, append under `## Update — YYYY-MM-DD`.
 
 Mark completed items, add notes.
 
-### 4D. Update Dashboard Tiles & Regenerate Canvas
+### 4D. Update Dashboard Tiles & Render Canvas Inline
 
-Update `HEX_DASHBOARDS` in `workspace-organizer/scripts/generate-canvas.ts`, then regenerate:
+Update the `HEX_DASHBOARDS` array in both canvas scripts:
+- `<WORKSPACE>/workspace-organizer/scripts/generate-canvas.ts`
+- `<WORKSPACE>/workspace-organizer/scripts/generate-canvas-data.ts`
 
+For each dashboard where a Hex thread returned a metric, update the `metric`, `detail`, `change`, `changeDirection`, `changeSuffix`, and `description` fields.
+
+If a thread failed, keep the existing values unchanged.
+
+**After updating workspace files, render the canvas inline using the Cursor `CreateCanvas` tool:**
+
+1. Regenerate the complete HTML dashboard:
 \`\`\`bash
 cd <WORKSPACE>/workspace-organizer && npm run canvas
 \`\`\`
 
-This rebuilds the self-contained HTML canvas with the latest workspace data.
+2. Call `CreateCanvas` with:
+   - `title`: "<HANDLE_TITLE>OS"
+   - `template`: `<WORKSPACE>/workspace-organizer/<HANDLE>os.html`
+
+3. Write the **data file** (returned by CreateCanvas) with `{}` to signal the canvas is ready.
+
+4. Clear the **state file** (write `{}`) to dismiss any loading state.
+
+The canvas renders inline in the Cursor chat as an interactive dashboard. No browser or server needed.
+
+**Alternative (data-driven template):** For live-updating canvases, use `canvas-template.html` with `npm run canvas-data` to generate JSON, then write the JSON to the CreateCanvas data file. The template renders from JSON data in a `<script type="application/json" id="canvas-data">` tag.
 
 ---
 
